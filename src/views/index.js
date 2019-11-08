@@ -1,4 +1,4 @@
-import {Builds} from './builds'
-import {Home} from './home'
+import Builds from './builds'
+import Home from './home'
 
-export {Builds,Home}
+export { Builds, Home }

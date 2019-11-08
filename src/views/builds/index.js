@@ -1,6 +1,6 @@
-import React,{} from 'react';
+import React, { } from 'react';
 import { View } from 'react-native';
 
-export const Builds = () =>{
+export default Builds = () => {
     return <View></View>
 }

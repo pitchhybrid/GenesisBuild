@@ -38,6 +38,7 @@ export default class Builds extends Component {
                     
                 {
                     this.state.item.descricao.map((v,i)=>{
+                        console.log(v);
                         var color = 'white';
                         if(v.startsWith('Custo')){
                             color = '#FCC069';
@@ -46,7 +47,7 @@ export default class Builds extends Component {
                         if(v.startsWith('[') && v.endsWith(']')){
                             color = '#F9F871';
                         }
-                        if(v.includes('+')){
+                        if(v.match(/(\s{5}\+|\s{4}\+)/)){
                             color = '#2BC38A';
                         }
                         if(flag){

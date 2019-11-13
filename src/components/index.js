@@ -1,4 +1,7 @@
-import heroi from './heroi';
-import item from './item';
+import Heroi from './heroi';
+import Item from './item';
+import StatusBar from './statusbar';
+import Button from './button';
+import Paralax from './paralax';
 
-export { heroi, item }
+export { Heroi, Item, StatusBar, Button, Paralax }

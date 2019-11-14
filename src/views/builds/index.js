@@ -38,7 +38,6 @@ export default class Builds extends Component {
                     
                 {
                     this.state.item.descricao.map((v,i)=>{
-                        console.log(v);
                         var color = 'white';
                         if(v.startsWith('Custo')){
                             color = '#FCC069';

@@ -1,12 +1,6 @@
 import {StyleSheet,Dimensions} from 'react-native'
 const { height, width } = Dimensions.get('window');
 export default StyleSheet.create({
-    border:{
-        borderColor:'#4E4C4D',
-        borderWidth:1,
-        borderRadius:10.0,
-        padding:2,
-    },
     container:{
         backgroundColor:'#403F40',
         width,
@@ -21,5 +15,17 @@ export default StyleSheet.create({
         borderLeftWidth:0,
         borderRightWidth:0,
         marginTop:10,
+    },
+    border:{
+        borderLeftWidth:2,
+        borderRightWidth:2,
+        borderLeftColor:'#FFC75F',
+        borderRightColor:'#FFC75F',
+        borderBottomWidth:1,
+        borderTopWidth:1,
+        borderBottomColor:'#4E4C4D',
+        borderTopColor:'#4E4C4D',
+        borderRadius:5.0,
+        padding:2,
     }
 });

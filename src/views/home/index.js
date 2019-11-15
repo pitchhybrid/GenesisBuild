@@ -4,7 +4,7 @@ import { Heroi, StatusBar, Button } from './../../components'
 import style from './style';
 import * as Font from 'expo-font';
 import { AntDesign } from '@expo/vector-icons';
-import fetchApi from './../../fetch';
+import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
 const { border, container, scroll, list } = style;
@@ -13,17 +13,41 @@ export default class Home extends Component {
         heroes: [],
         heroesCp:[],
         itens:[],
+        font:'',
         pesquisa: '',
         status:false
     }
 
     componentWillMount() {
+        const _heroes = require('./../../../assets/heroes.json');
+        const _itens = require('./../../../assets/itens.json');
         this.setState({status:true})
-        fetchApi('https://genesisbuild-adfb1.firebaseio.com/heroes.json', 
-            heroes => this.setState({heroes,heroesCp:heroes}));
-        fetchApi('https://genesisbuild-adfb1.firebaseio.com/itens.json',
-            itens => this.setState({itens,status:false}))
+        axios.get('https://genesisbuilds-60b24.firebaseio.com/heroes.json')
+        .then( 
+            heroes => {
+                if(heroes.error){
+                    this.setState({heroes:_heroes,heroesCp:_heroes})
+                }else{
+                    this.setState({heroes,heroesCp:heroes})
+                }
+            })
+        .catch(()=>{
+            this.setState({heroes:_heroes,heroesCp:_heroes})
+        });
+        axios.get('https://genesisbuilds-60b24.firebaseio.com/itens.json')
+        .then(
+            itens => {
+                if(itens.error){
+                    this.setState({itens:_itens,status:false})
+                }else{
+                    this.setState({itens,status:false})
+                }
+            })
+        .catch(()=>{
+            this.setState({itens:_itens,status:false})
+        });
         Font.loadAsync({'varela-round':require('./../../../assets/VarelaRound-Regular.ttf')})
+        .then(()=> this.setState({font:'varela-round'}))
     }
 
     sortItens(){
@@ -64,7 +88,7 @@ export default class Home extends Component {
                 <ScrollView style={scroll}>
                     {this.state.status && <ActivityIndicator animating={this.state.status} size='large'></ActivityIndicator>}
                     {
-                        this.state.heroesCp.map((item, index) => <Fragment key={index} build={this.sortItens()} item={item}></Fragment>)
+                        this.state.heroesCp.map((item, index) => <Fragment key={index} font={this.state.font} build={this.sortItens()} item={item}></Fragment>)
                     }
                 </ScrollView>
             </View>
@@ -72,13 +96,13 @@ export default class Home extends Component {
     }
 }
 
-function Fragment({ item, build }) {
+function Fragment({ item, build,font }) {
     const colors = ['#845EC2','#D65DB1','#FF6F91','#FF9671','#FFC75F','#F9F871'];
     var index = Math.floor(Math.random() * colors.length);
     return (<View style={[list,border,{borderLeftColor:colors[index],borderRightColor:colors[index]}]}>
         <Button onPress={() => { Actions.builds({hero:item,build}) }}>
             <Heroi image={item.image}>
-                <Text style={{ fontSize: 25, fontFamily:'varela-round',color: 'white' }}>{item.hero.replace('_',' ')}</Text>
+                <Text style={{ fontSize: 25, fontFamily:font,color: 'white' }}>{item.hero.replace('_',' ')}</Text>
             </Heroi>
         </Button>
     </View>);

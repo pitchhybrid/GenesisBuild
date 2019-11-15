@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, ScrollView, Text, ActivityIndicator } from 'react-native';
-import { Heroi, StatusBar, Button } from './../../components'
+import { Heroi, StatusBar, Button } from './../../components';
 import style from './style';
 import * as Font from 'expo-font';
 import { AntDesign } from '@expo/vector-icons';
@@ -28,7 +28,7 @@ export default class Home extends Component {
                 if(heroes.error){
                     this.setState({heroes:_heroes,heroesCp:_heroes})
                 }else{
-                    this.setState({heroes,heroesCp:heroes})
+                    this.setState({heroes:heroes.data,heroesCp:heroes.data})
                 }
             })
         .catch(()=>{
@@ -40,7 +40,7 @@ export default class Home extends Component {
                 if(itens.error){
                     this.setState({itens:_itens,status:false})
                 }else{
-                    this.setState({itens,status:false})
+                    this.setState({itens:itens.data,status:false})
                 }
             })
         .catch(()=>{
